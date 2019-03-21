@@ -1,0 +1,109 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 750px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "sandybrown", "id": 0, "label": "0.C", "shape": "dot", "title": "Methylmalonyl-CoA,0"}, {"color": "sandybrown", "id": 1, "label": "1.C", "shape": "dot", "title": "Methylmalonyl-CoA,0"}, {"color": "sandybrown", "id": 2, "label": "2.C", "shape": "dot", "title": "Methylmalonyl-CoA,0"}, {"color": "sandybrown", "id": 3, "label": "3.O", "shape": "dot", "title": "Methylmalonyl-CoA,0"}, {"color": "lightblue", "id": 4, "label": "4.C", "shape": "dot", "title": "Malonyl-CoA,1"}, {"color": "lightblue", "id": 5, "label": "5.C", "shape": "dot", "title": "Malonyl-CoA,1"}, {"color": "indigo", "id": 6, "label": "7.C", "shape": "dot", "title": "Malonyl-CoA,2"}, {"color": "indigo", "id": 7, "label": "8.C", "shape": "dot", "title": "Malonyl-CoA,2"}, {"color": "indigo", "id": 8, "label": "9.O", "shape": "dot", "title": "Malonyl-CoA,2"}, {"color": "fuchsia", "id": 9, "label": "10.C", "shape": "dot", "title": "Methylmalonyl-CoA,3"}, {"color": "fuchsia", "id": 10, "label": "11.C", "shape": "dot", "title": "Methylmalonyl-CoA,3"}, {"color": "fuchsia", "id": 11, "label": "12.C", "shape": "dot", "title": "Methylmalonyl-CoA,3"}, {"color": "fuchsia", "id": 12, "label": "13.O", "shape": "dot", "title": "Methylmalonyl-CoA,3"}, {"color": "burlywood", "id": 13, "label": "14.C", "shape": "dot", "title": "Methylmalonyl-CoA,4"}, {"color": "burlywood", "id": 14, "label": "15.C", "shape": "dot", "title": "Methylmalonyl-CoA,4"}, {"color": "burlywood", "id": 15, "label": "16.C", "shape": "dot", "title": "Methylmalonyl-CoA,4"}, {"color": "darkgreen", "id": 16, "label": "18.C", "shape": "dot", "title": "Malonyl-CoA,5"}, {"color": "darkgreen", "id": 17, "label": "19.C", "shape": "dot", "title": "Malonyl-CoA,5"}, {"color": "darkgreen", "id": 18, "label": "20.O", "shape": "dot", "title": "Malonyl-CoA,5"}, {"color": "deeppink", "id": 19, "label": "21.C", "shape": "dot", "title": "Methylmalonyl-CoA,6"}, {"color": "deeppink", "id": 20, "label": "22.C", "shape": "dot", "title": "Methylmalonyl-CoA,6"}, {"color": "deeppink", "id": 21, "label": "23.C", "shape": "dot", "title": "Methylmalonyl-CoA,6"}, {"color": "deeppink", "id": 22, "label": "24.O", "shape": "dot", "title": "Methylmalonyl-CoA,6"}, {"color": "oldlace", "id": 23, "label": "25.C", "shape": "dot", "title": "Malonyl-CoA,7"}, {"color": "oldlace", "id": 24, "label": "26.C", "shape": "dot", "title": "Malonyl-CoA,7"}, {"color": "oldlace", "id": 25, "label": "27.O", "shape": "dot", "title": "Malonyl-CoA,7"}, {"color": "navy", "id": 26, "label": "28.C", "shape": "dot", "title": "Malonyl-CoA,8"}, {"color": "navy", "id": 27, "label": "29.C", "shape": "dot", "title": "Malonyl-CoA,8"}, {"color": "navy", "id": 28, "label": "30.O", "shape": "dot", "title": "Malonyl-CoA,8"}, {"color": "darkseagreen", "id": 29, "label": "32.C", "shape": "dot", "title": "Methyl-group,10"}]);
+        edges = new vis.DataSet([{"color": "black", "from": 4, "to": 5, "value": 1}, {"color": "black", "from": 16, "to": 18, "value": 2}, {"color": "black", "from": 0, "to": 1, "value": 1}, {"color": "black", "from": 20, "to": 21, "value": 1}, {"color": "black", "from": 26, "to": 28, "value": 2}, {"color": "black", "from": 16, "to": 20, "value": 1}, {"color": "black", "from": 26, "to": 27, "value": 1}, {"color": "black", "from": 23, "to": 24, "value": 1}, {"color": "black", "from": 6, "to": 7, "value": 1}, {"color": "black", "from": 19, "to": 22, "value": 1}, {"color": "black", "from": 4, "to": 7, "value": 2}, {"color": "black", "from": 12, "to": 29, "value": 1}, {"color": "black", "from": 19, "to": 24, "value": 1}, {"color": "black", "from": 19, "to": 20, "value": 1}, {"color": "black", "from": 1, "to": 2, "value": 1}, {"color": "black", "from": 6, "to": 8, "value": 1}, {"color": "black", "from": 0, "to": 3, "value": 1}, {"color": "black", "from": 9, "to": 14, "value": 1}, {"color": "black", "from": 13, "to": 17, "value": 1}, {"color": "black", "from": 9, "to": 12, "value": 1}, {"color": "black", "from": 0, "to": 5, "value": 1}, {"color": "black", "from": 3, "to": 26, "value": 1}, {"color": "black", "from": 23, "to": 27, "value": 1}, {"color": "black", "from": 16, "to": 17, "value": 1}, {"color": "black", "from": 14, "to": 15, "value": 1}, {"color": "black", "from": 6, "to": 10, "value": 1}, {"color": "black", "from": 13, "to": 14, "value": 1}, {"color": "black", "from": 9, "to": 10, "value": 1}, {"color": "black", "from": 10, "to": 11, "value": 1}, {"color": "black", "from": 23, "to": 25, "value": 2}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        // default to using dot shape for nodes
+        options.nodes = {
+            shape: "dot"
+        }
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
